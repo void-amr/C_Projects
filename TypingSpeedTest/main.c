@@ -23,7 +23,7 @@
 
  int main(void) 
  { 
-	 // Entry point function. 
+ 	// Entry point function. 
 	 
 	 /**
 	  * setlocale() -> tells the C runtime to read the data_item -> spark_emoji as unicode character
@@ -31,8 +31,7 @@
 	  * @"" *locale -> this is what decides in what locale the entire program will act 
 	  *  		   if null or ""(empty string is passed) it selects the systems default locale 
 	  *  		   from environment variables
-	  *
-	  * On the basis of the *local -> we can set the category -> which can be used to decide whether this 
+	  *	  * On the basis of the *local -> we can set the category -> which can be used to decide whether this 
 	  * will affect the entire C program functions or some set of functions which are defined in other libraries 
 	  */
 	 
@@ -69,21 +68,44 @@
 		 printf("Invalid option: Please Enter again");
 	 } 
 
-	 return 0; 
+	 return 0;
  }
   
  void track_typing_speed() 
  {
-	wprintf(L"Welcome"); 
- } 
+	wchar_t u_c [1]; 	
+ 	wprintf(L"%ld", sizeof u_c); 
+/*
+	wprintf(L"\n\nWelcome to TypingSpeedTest Checker:");
+	wprintf(L"Want to know how does this work ?\n");
+	wprintf(L"Press [Y/N] yes to continue,\nNo to start the test immediately"); 
+*/ 
+	wprintf(L"\n\nEnter your choice: "); 
+	
+	 wscanf(L"%ls", u_c); 
+		wprintf(L"Reading some data");
+		wprintf(L"%ls",u_c);
+		wprintf(L"Line wil be printed if it's taking new line as input"); 
+	
+
+/*	if(user_choice == 'y' || user_choice == 'Y') {
+		wprintf(L"Opening docs wait...."); 
+	} else if (user_choice == 'n' || user_choice == 'N') {
+	char string_reference [] = "SQLite is a lightweight, serverless, self-contained, and zero-configuration database engine that is widely used in                                          Android for local data storage. It is embedded into Android applications and does not require a separate server or                                          network connection to function. SQLite is a relational database, meaning it stores data in tables and supports SQL                                          queries to perform CRUD (Create, Read, Update, Delete) operations.";
+	wprintf(L"%s", string_reference);
+	} else {
+		wprintf(L"Invalid Option: Please enter valid one");
+	}
+*/ 
+} 
  /**
   * 	Function Definition
   *
   * function_identifier	:- user_requests_exit
-  * function_parameter	:- void (nothing)
+  * function_parameter	:- void (nothing) 
   * function_return_type:- void 
   *
-  * @bstract :- 
+  * abstract :- 
   *
   * 	This function while make sure that if the user enters the option of exit in the program they will 
   * 	be exited of the terminal from the program execution 
