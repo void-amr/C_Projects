@@ -8,7 +8,6 @@
  * 
  */ 
  
- 
  // Header Files 
  #include <stdio.h> 
  #include <wchar.h> 
@@ -27,11 +26,14 @@
 	 
 	 /**
 	  * setlocale() -> tells the C runtime to read the data_item -> spark_emoji as unicode character
+	  * 
 	  * @LC_ALL (parameter) -> is category which affects the program 
+	  * 
 	  * @"" *locale -> this is what decides in what locale the entire program will act 
-	  *  		   if null or ""(empty string is passed) it selects the systems default locale 
-	  *  		   from environment variables
-	  *	  * On the basis of the *local -> we can set the category -> which can be used to decide whether this 
+	  *  		       if null or ""(empty string is passed) it selects the systems default locale 
+	  *  		       from environment variables
+	  * 
+	  *	On the basis of the *local -> we can set the category -> which can be used to decide whether this 
 	  * will affect the entire C program functions or some set of functions which are defined in other libraries 
 	  */
 	 
@@ -73,19 +75,18 @@
   
  void track_typing_speed() 
  {
-	wchar_t u_c [1]; 	
- 	wprintf(L"%ld", sizeof u_c); 
+	char u_c;
 /*
 	wprintf(L"\n\nWelcome to TypingSpeedTest Checker:");
 	wprintf(L"Want to know how does this work ?\n");
 	wprintf(L"Press [Y/N] yes to continue,\nNo to start the test immediately"); 
 */ 
-	wprintf(L"\n\nEnter your choice: "); 
-	
-	 wscanf(L"%ls", u_c); 
-		wprintf(L"Reading some data");
-		wprintf(L"%ls",u_c);
-		wprintf(L"Line wil be printed if it's taking new line as input"); 
+	wprintf(L"Enter your choice:"); 
+	u_c = getchar();
+
+	wprintf(L"\nReading some data");
+	wprintf(L"%c",u_c);
+	wprintf(L"Line wil be printed if it's taking new line as input");
 	
 
 /*	if(user_choice == 'y' || user_choice == 'Y') {
