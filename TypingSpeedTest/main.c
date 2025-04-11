@@ -9,11 +9,12 @@
  */ 
  
  // Header Files 
+
  #include <stdio.h> 
  #include <wchar.h> 
  #include <locale.h> 
  #include <stdlib.h> 
-
+ #include <ctype.h> 
  /*
   *Function Proto-Type */
 
@@ -43,7 +44,8 @@
 	  * Here spark_emoji is allocated 4 bytes of memory because : 
 	  * It uses UTF-8 (unicode 16 bits) as it is above the basic lingual plane 
 	  * So the unicode bits will be stored in 4 bytes 
-	 */ 
+	 */
+
 	 wchar_t spark_emoji = 0x1F4A5;		
 	 wchar_t fire_emoji = 0x1F525; 
  	
@@ -67,37 +69,54 @@
 		 user_requests_exit(); 
 	 } 
 	 else {
-		 printf("Invalid option: Please Enter again");
+		wprintf(L"Invalid option: Please Enter again");
 	 } 
 
 	 return 0;
  }
+
+/**
+ * 	Function definition 
+ * 
+ * function_identifier	:- track_typing_speed 
+ * function_paramters	:- none 
+ * function_return_type	:- void 
+ *
+ * abstract :- 
+ * 		This function is the actual worker which tracks down the time required by user to complete the 
+ * 		typing test. This function is modular and can be altered based on needs. 
+ */ 
   
  void track_typing_speed() 
  {
-	char u_c;
-/*
-	wprintf(L"\n\nWelcome to TypingSpeedTest Checker:");
-	wprintf(L"Want to know how does this work ?\n");
-	wprintf(L"Press [Y/N] yes to continue,\nNo to start the test immediately"); 
-*/ 
-	wprintf(L"Enter your choice:"); 
-	u_c = getchar();
+	 char u_c;
+	//short u_c; 
 
-	wprintf(L"\nReading some data");
-	wprintf(L"%c",u_c);
-	wprintf(L"Line wil be printed if it's taking new line as input");
-	
+	wprintf(L"\nWelcome to TypingSpeedTest Checker:\n");
+	wprintf(L"______________________________________\n\n");
+	wprintf(L"Want to know how does this work ?\n======================================\n");
+	wprintf(L"Press [1] to continue\n");
+	wprintf(L"Press [2] to start the test immediately\n");
+ 
+	wprintf(L"Enter your choice: "); 
+	scanf(" %c", &u_c);  
+	wprintf(L"\n");
 
-/*	if(user_choice == 'y' || user_choice == 'Y') {
+	if(u_c == 'y' || u_c == 'Y') {
 		wprintf(L"Opening docs wait...."); 
-	} else if (user_choice == 'n' || user_choice == 'N') {
-	char string_reference [] = "SQLite is a lightweight, serverless, self-contained, and zero-configuration database engine that is widely used in                                          Android for local data storage. It is embedded into Android applications and does not require a separate server or                                          network connection to function. SQLite is a relational database, meaning it stores data in tables and supports SQL                                          queries to perform CRUD (Create, Read, Update, Delete) operations.";
-	wprintf(L"%s", string_reference);
-	} else {
-		wprintf(L"Invalid Option: Please enter valid one");
-	}
-*/ 
+	} 
+	else if (u_c == 'n' || u_c == 'N') {
+		wprintf(L"Start typing once you're ready don't worry timer will start counting once your start typing.\n\n");
+		wprintf(L"------------------------------------------------------------------------------------------------\n\n");
+		char string_reference [] = "SQLite is a lightweight, serverless, self-contained, and zero-configuration database engine that is widely used in                                          Android for local data storage. It is embedded into Android applications and does not require a separate server or                                          network connection to function. SQLite is a relational database, meaning it stores data in tables and supports SQL                                          queries to perform CRUD (Create, Read, Update, Delete) operations.";
+		wprintf(L"%s", string_reference);
+
+		wprintf(L"\n\nStart typing..  ");
+		
+	} 	
+	else {
+		wprintf(L"Invalid Option: Please enter valid option");
+	} 
 } 
  /**
   * 	Function Definition
@@ -109,7 +128,7 @@
   * abstract :- 
   *
   * 	This function while make sure that if the user enters the option of exit in the program they will 
-  * 	be exited of the terminal from the program execution 
+  * 	be exited of the terminal from the program execution. 
   **/ 
  
   void user_requests_exit()
