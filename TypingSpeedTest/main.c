@@ -14,7 +14,7 @@
  #include <wchar.h> 
  #include <locale.h> 
  #include <stdlib.h> 
- #include <ctype.h> 
+  
  /*
   *Function Proto-Type */
 
@@ -109,10 +109,17 @@
 		wprintf(L"Start typing once you're ready don't worry timer will start counting once your start typing.\n\n");
 		wprintf(L"------------------------------------------------------------------------------------------------\n\n");
 		char string_reference [] = "SQLite is a lightweight, serverless, self-contained, and zero-configuration database engine that is widely used in                                          Android for local data storage. It is embedded into Android applications and does not require a separate server or                                          network connection to function. SQLite is a relational database, meaning it stores data in tables and supports SQL                                          queries to perform CRUD (Create, Read, Update, Delete) operations.";
+	
+		char input_reference[536]; 
+
 		wprintf(L"%s", string_reference);
 
-		wprintf(L"\n\nStart typing..  ");
-		
+		wprintf(L"\n\nStart typing..\n");
+		 
+		scanf(" %s", input_reference);
+
+		wprintf(L"%s", input_reference);
+
 	} 	
 	else {
 		wprintf(L"Invalid Option: Please enter valid option");
