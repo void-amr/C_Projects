@@ -26,24 +26,29 @@
  	// Entry point function. 
 	 
 	 /**
-	  * setlocale() -> tells the C runtime to read the data_item -> spark_emoji as unicode character
+	  * setlocale() -> installs the new locale and makes the execution influnced based on the specified locale by default uses C locale. 
 	  * 
-	  * @LC_ALL (parameter) -> is category which affects the program 
+	  * @LC_ALL (parameter) -> is category which affects the locale sensitive functions C-type here means all the functions used to manipulate
+	  * 			   character type will be influenced and executed based on new locale. 
 	  * 
 	  * @"" *locale -> this is what decides in what locale the entire program will act 
-	  *  		       if null or ""(empty string is passed) it selects the systems default locale 
-	  *  		       from environment variables
+	  *  		       if null or ""(empty string is passed) it selects the user's system default locale 
 	  * 
-	  *	On the basis of the *local -> we can set the category -> which can be used to decide whether this 
-	  * will affect the entire C program functions or some set of functions which are defined in other libraries 
+	  * On the basis of the *local -> we can set the category -> which can be used to decide whether this 
+	  * will affect the entire C program functions or some set of functions which are defined in C libraries 
+	  *
+	  * The program starts up with execution of setlocale(LC_ALL,"C") as it's default locale. 
+	  * Later the manipulation of locale changes the locale. 
 	  */
 	 
 	  setlocale(LC_CTYPE,""); 
  	
 	 /**
-	  * Here spark_emoji is allocated 4 bytes of memory because : 
-	  * It uses UTF-8 (unicode 16 bits) as it is above the basic lingual plane 
-	  * So the unicode bits will be stored in 4 bytes 
+	  * Here spark_emoji is allocated 4 bytes of memory because the program is compiled on linux
+	  * If the program was to be compiled on windows. It would've allocated 2 bytes to wchar_t 
+	  *
+	  * It uses UTF-8 (unicode 16 bits) to store the code point hence providing much larger space to store more codepoints 
+	  * around 65,500 + code points are stored in UTF-8. 
 	 */
 
 	 wchar_t spark_emoji = 0x1F4A5;		
@@ -108,18 +113,58 @@
 	else if (u_c == 'n' || u_c == 'N') {
 		wprintf(L"Start typing once you're ready don't worry timer will start counting once your start typing.\n\n");
 		wprintf(L"------------------------------------------------------------------------------------------------\n\n");
-		char string_reference [] = "SQLite is a lightweight, serverless, self-contained, and zero-configuration database engine that is widely used in                                          Android for local data storage. It is embedded into Android applications and does not require a separate server or                                          network connection to function. SQLite is a relational database, meaning it stores data in tables and supports SQL                                          queries to perform CRUD (Create, Read, Update, Delete) operations.";
-	
-		char input_reference[536]; 
+		char string_reference []= {
+			"The sun was shining brightly in the clear blue sky. Birds were singing their sweet melodies from the trees. A gentle breeze rustled through the leaves, creating a soothing sound. It was a perfect day to go for a walk in the park. The smell of fresh grass filled the air as children played happily on the swings."
+		};
+ 
+		/**
+		 * size_of_reference_data -> Integer type 
+		 *
+		 * Used in Calculating the size of vla -> string_reference 
+		 * This let's us change the size of string_reference (data_item) 
+		 * without havin to worry to manually set the character array size to read and store what user types 
+		 */ 
+		int size_of_reference_data = sizeof(string_reference);
 
+		char input_reference[size_of_reference_data]; 
+/* 
+		wprintf(L"%ld\n", sizeof string_reference);
+		wprintf(L"%ld", sizeof input_reference);
+*/ 
 		wprintf(L"%s", string_reference);
 
-		wprintf(L"\n\nStart typing..\n");
-		 
-		scanf(" %s", input_reference);
+/*		
+		scanf(" %[^\n]", input_reference);		// This tells scanf to read everything except \n  
 
-		wprintf(L"%s", input_reference);
+		wprintf(L"%s size: %ld", input_reference, sizeof input_reference);
+*/ 
+		for(int le = 0; (input_reference[le] = getchar()) != '\n'; le++) {
+			// clear the buffer.
+			/**
+			 * 	At times what happens is, The previous inputs character like new line or some misc character 
+			 * 	is feed to the buffer of our new input. 
+			 * 	So stdin fills the misc data to the memory. 
+			 * 
+			 * 	To avoid new line feed to fill our new memory we perform this for loop to clear the buffer by doing nothing. 
+			 */ 
+		} 
 
+		/* counter keeps track of number of character entered */ 
+		int counter; 
+ 
+		for(int le = 0; (input_reference[le] = getchar()) != '\n'; le++) {
+			counter++; 
+		}
+
+		wprintf(L"\n %s \n counter: %d ",input_reference,counter);
+
+		int character_per_minute = counter/60.0; 
+		int word_per_minute = character_per_minute/5; 
+		
+		wprintf(L"\n\n=========================Generating reports===========================\n\n");
+		
+		wprintf(L"Character per minute -> %d\n", character_per_minute);
+		wprintf(L"Words per minute-> %d", word_per_minute);
 	} 	
 	else {
 		wprintf(L"Invalid Option: Please enter valid option");
