@@ -45,10 +45,7 @@
  	
 	 /**
 	  * Here spark_emoji is allocated 4 bytes of memory because the program is compiled on linux
-	  * If the program was to be compiled on windows. It would've allocated 2 bytes to wchar_t 
-	  *
-	  * It uses UTF-8 (unicode 16 bits) to store the code point hence providing much larger space to store more codepoints 
-	  * around 65,500 + code points are stored in UTF-8. 
+	  * If the program was to be compiled on windows. It would've allocated 2 bytes to wchar_t  
 	 */
 
 	 wchar_t spark_emoji = 0x1F4A5;		
@@ -100,8 +97,8 @@
 	wprintf(L"\nWelcome to TypingSpeedTest Checker:\n");
 	wprintf(L"______________________________________\n\n");
 	wprintf(L"Want to know how does this work ?\n======================================\n");
-	wprintf(L"Press [1] to continue\n");
-	wprintf(L"Press [2] to start the test immediately\n");
+	wprintf(L"Press [Y] to continue\n");
+	wprintf(L"Press [N] to start the test immediately\n");
  
 	wprintf(L"Enter your choice: "); 
 	scanf(" %c", &u_c);  
@@ -124,20 +121,24 @@
 		 * This let's us change the size of string_reference (data_item) 
 		 * without havin to worry to manually set the character array size to read and store what user types 
 		 */ 
-		int size_of_reference_data = sizeof(string_reference);
+		const int size_of_reference_data = sizeof(string_reference);
 
 		char input_reference[size_of_reference_data]; 
 /* 
 		wprintf(L"%ld\n", sizeof string_reference);
 		wprintf(L"%ld", sizeof input_reference);
 */ 
-		wprintf(L"%s", string_reference);
+		wprintf(L"%s\n==========================================================================================================================\n", 			    string_reference);  
+		
+		/**
+		 * 	So I tried doing this space thing as well 
+		 *	
+		 *	scanf(" %[^ ]");
+		 *		
+		 *	Here ^ -> negate character ignores the characters mentioned in the sequence and reads everything 
+		 *	except space but the question is i
+		 */ 
 
-/*		
-		scanf(" %[^\n]", input_reference);		// This tells scanf to read everything except \n  
-
-		wprintf(L"%s size: %ld", input_reference, sizeof input_reference);
-*/ 
 		for(int le = 0; (input_reference[le] = getchar()) != '\n'; le++) {
 			// clear the buffer.
 			/**
@@ -158,7 +159,7 @@
 
 		wprintf(L"\n %s \n counter: %d ",input_reference,counter);
 
-		int character_per_minute = counter/60.0; 
+		int character_per_minute = counter/1; 
 		int word_per_minute = character_per_minute/5; 
 		
 		wprintf(L"\n\n=========================Generating reports===========================\n\n");
